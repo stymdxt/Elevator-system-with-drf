@@ -10,7 +10,7 @@ class ElevatorStatus(models.Model):
         db_table = 'elevator_status'
 
 class Elevator(models.Model):
-    id = models.AutoField(primary_key=True)  # primary key
+    id = models.AutoField(primary_key=True)  
     location = models.CharField(max_length=50, null=True)  # location of the elevator
     status = models.ForeignKey(ElevatorStatus, on_delete=models.CASCADE, null=True)
     current_floor = models.IntegerField(null=False)
