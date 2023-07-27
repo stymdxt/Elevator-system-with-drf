@@ -21,10 +21,10 @@ def use_elevator(request):
     Handles the user requests to use the elevator
     """
     if request.method == 'POST':
-        payload = json.loads(request.body.decode('utf-8')) # JSON data is stored into a Python dictionary
-        elevator_id = payload.get('elevator_id') # code tries to extract the 'elevator_id' from the payload
+        payload = json.loads(request.body.decode('utf-8')) 
+        elevator_id = payload.get('elevator_id') 
         if str(elevator_id).isnumeric():
-            elevator_name = payload.get('elevator_name') # user can also pass the name of the elevator
+            elevator_name = payload.get('elevator_name') 
             if elevator_name is not None:
                 elevator = models.Elevator.objects.get(name=elevator_name)
                 if elevator is not None:
@@ -48,9 +48,9 @@ def use_elevator(request):
 
 
 @api_view(["POST"])
-def elevator_maintainence(request):
+def elevator_maintenance(request):
     """
-    Handles maintainence requests for the elevator
+    Handles maintenance requests for the elevator
     """
     if request.method == 'POST':
         payload = json.loads(request.body.decode('utf-8'))
@@ -62,14 +62,14 @@ def elevator_maintainence(request):
                 elevator = models.Elevator.objects.get(name=elevator_name)
                 elevator_id = elevator.id
         if action == 'start':
-            request_status = utils.start_maintainence(elevator_id)
+            request_status = utils.start_maintenance(elevator_id)
             return_payload = {
                 'elevator_id': elevator_id,
                 'request_status': request_status
             }
             return Response(return_payload,status=status.HTTP_200_OK)
         elif action == 'finish':
-            request_status = utils.finish_maintainence(elevator_id)
+            request_status = utils.finish_maintenance(elevator_id)
             return_payload = {
                 'elevator_id': elevator_id,
                 'request_status': request_status

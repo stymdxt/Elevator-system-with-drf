@@ -1,7 +1,7 @@
 from django.db import models
 
 class ElevatorStatus(models.Model):
-    status = models.CharField(max_length=20, null=False)  # moving, stopped
+    status = models.CharField(max_length=20, null=False)  
 
     def __str__(self):
         return f"{self.id}: {self.status}" 
@@ -11,19 +11,19 @@ class ElevatorStatus(models.Model):
 
 class Elevator(models.Model):
     id = models.AutoField(primary_key=True)  
-    location = models.CharField(max_length=50, null=True)  # location of the elevator
+    name = models.CharField(max_length=50, null=True)  
     status = models.ForeignKey(ElevatorStatus, on_delete=models.CASCADE, null=True)
     current_floor = models.IntegerField(null=False)
     destination_floor = models.IntegerField(null=True, blank=True)
-    direction = models.BooleanField(null=True, blank=True)  # True if going up, False if going down
-    min_floor = models.IntegerField(null=False)  # min floor served by the elevator
-    max_floor = models.IntegerField(null=False)  # max floor served by the elevator
-    max_occupancy = models.IntegerField(null=False)  # max occupancy of the elevator
-    current_occupancy = models.IntegerField(null=False)  # current occupancy of the elevator
+    moving_up = models.BooleanField(null=True, blank=True)  # True if going up, False if going down.
+    min_floor = models.IntegerField(null=False, blank=False)  
+    max_floor = models.IntegerField(null=False, blank=False)  
+    max_capacity = models.IntegerField(null=False)  # max no. of people that the elevator carry safely
+    current_capacity = models.IntegerField(null=True)  # current no. of people inside the elevator
     door_close= models.BooleanField(default=True)  # True if door is closed, False if door is open
     
     def __str__(self):
-        return f"{self.id}: {self.location}"
+        return f"{self.id}"
 
     def open_door(self):
         if not self.door_close:

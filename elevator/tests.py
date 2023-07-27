@@ -15,15 +15,15 @@ class ElevatorViewsTestCase(TestCase):
         Testing for create new elevator
         """
         payload = {
-        "location": "main",
+        # "location": "main",
         "current_floor": 0,
         "destination_floor": 0,
-        "direction": None,
+        "moving_up": None,
         "working": True,
         "min_floor": 0,
         "max_floor": 10,
-        "max_occupancy": 10,
-        "current_occupancy": 0,
+        "max_capacity": 10,
+        "current_capacity": 0,
         "status": None
     }
 
